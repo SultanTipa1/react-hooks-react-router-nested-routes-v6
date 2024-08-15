@@ -1,9 +1,11 @@
+import { Outlet, useOutletContext } from "react-router-dom";
 import { useState, useEffect } from "react";
 import UserCard from "../components/UserCard";
 import NavBar from "../components/NavBar";
 
 function Home() {
   const [users, setUsers] = useState([]);
+  const userList = users.map((user) => <UserCard key={user.id} user={user} />);
 
   useEffect(() =>{
     fetch("http://localhost:4000/users")
@@ -23,6 +25,7 @@ function Home() {
       </header>
       <main>
         <h1>Home!</h1>
+        <Outlet context={users} />
         {userList}
       </main>
     </>
